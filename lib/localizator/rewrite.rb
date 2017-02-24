@@ -6,6 +6,24 @@ module ActionDispatch::Routing
   end
 end
 
+
+module Localizator
+  module TranslationController
+    def self.included base
+      base.instance_eval do
+        before_action :enable_localizator
+      end
+    end
+
+    def enable_localizator
+      #return false unless Localizator.enabled
+
+      ::Localizator.enable_links = Localizator.enable_proc.call(self)
+    end
+  end
+end
+
+
 module Localizator
   module TranslationEditLink
     def self.included base

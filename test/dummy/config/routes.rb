@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-
-  mount Localizator::Engine => "/localizator"
+  root 'home#index'
+#  mount Localizator::Engine, as: "/localizator"
 end
