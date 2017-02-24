@@ -1,0 +1,29 @@
+table.keys {
+  width: 100%;
+}
+
+table.keys .key {
+  padding-left: 0.5em;
+}
+
+table.keys tr.translation > td {
+  border-bottom: 1px solid #bbb;
+}
+
+table.keys tr.translation.incomplete .key .text {
+  border-bottom: 3px solid #f33;
+}
+
+table.keys tr.translation.empty .key .text {
+  border-bottom: 3px solid #33f;
+}
+
+table.keys td.key {
+  width: 300px;
+}
+
+table.locales td.value textarea {
+  padding: 3px;
+  width: 600px;
+}
+
