@@ -30,7 +30,7 @@ module Localizator
 
   # If you want to enable access by specific conditions
   mattr_accessor :enable_proc
-  @@enable_proc = proc { |controller| controller.try(:current_user).try(:admin?) }  
+  @@enable_proc = proc { |controller| controller.try(:current_user).try(:admin?) }
 
   class << self
     attr_accessor :app
