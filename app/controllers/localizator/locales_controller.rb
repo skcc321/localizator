@@ -1,7 +1,6 @@
 require_dependency "localizator/application_controller"
 
 require "localizator/app"
-require "pry"
 
 module Localizator
   class LocalesController < ApplicationController
