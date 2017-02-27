@@ -26,10 +26,6 @@ module Localizator
   @@password = false
 
   # If you want to enable access by specific conditions
-  mattr_accessor :verify_access_proc
-  @@verify_access_proc = proc { |controller| true }
-
-  # If you want to enable access by specific conditions
   mattr_accessor :enable_proc
   @@enable_proc = proc { |controller| controller.try(:current_user).try(:admin?) && !Rails.env.test? }
 

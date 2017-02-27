@@ -16,8 +16,6 @@ module Localizator
     end
 
     def enable_localizator
-      #return false unless Localizator.enabled
-
       ::Localizator.enable_links = Localizator.enable_proc.call(self)
     end
   end
@@ -35,9 +33,11 @@ module Localizator
             result
           else
             link = <<-eos
-            <a href='/localizator?filters[key]=#{attrs.first}'">
+            <i class='edit-locale-link'
+               data-href='/localizator?filters[key]=#{attrs.first}'
+            >
                #{Localizator.edit_link_caption}
-            </a>
+            </i>
             eos
 
             "#{result}#{link}".html_safe
