@@ -35,7 +35,7 @@ module Localizator
             result
           else
             link = <<-eos
-            <a href='localizator?filters[key]=#{attrs.first}'">
+            <a href='/localizator?filters[key]=#{attrs.first}'">
                #{Localizator.edit_link_caption}
             </a>
             eos
