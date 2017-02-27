@@ -15,5 +15,15 @@ module Localizator
       post :update, translations: { "en.hello" => 'Hello', "uk.hello" => "Привіт", "ru.hello" => 'Привет' }
       assert_redirected_to locales_path
     end
+
+    test "should get download" do
+      get :download
+      assert_response :success
+    end
+
+    test "should get reload" do
+      get :reload
+      assert_redirected_to locales_path
+    end
   end
 end

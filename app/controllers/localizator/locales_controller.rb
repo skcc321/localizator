@@ -43,6 +43,7 @@ module Localizator
 
     def reload
       FileUtils.touch(Rails.root.join('tmp', 'restart.txt'))
+      redirect_to locales_path
     end
   end
 end
