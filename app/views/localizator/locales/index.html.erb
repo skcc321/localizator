@@ -1,54 +1,51 @@
-<%= render 'navbar' %>
+<% if @filters.empty? %>
+  <table class="categories" cellspacing="0">
+    <% @categories.each do |name, category| %>
+      <tr class="category <%= "incomplete" unless category.complete? %>">
+        <td class="key">
+          <a class="text" href="<%= locales_url %>?filters[key]=<%= Rack::Utils.escape("^#{category.name}") %>"><%= category.name %></a>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <form id="updateform" action="<%= update_locales_path %>" method="post">
+    <% @filters.each do |filter, value| %>
+      <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
+    <% end %>
 
-<div class="content">
-  <% if @filters.empty? %>
-    <table class="categories" cellspacing="0">
-      <% @categories.each do |name, category| %>
-        <tr class="category <%= "incomplete" unless category.complete? %>">
+    <table class="table table-striped table-hover" cellspacing="0">
+      <% @keys.each do |name, key| %>
+        <tr class="key
+          <%= "warning" unless key.complete? %>
+          <%= "danger" if key.empty? %>
+          ">
           <td class="key">
-            <a class="text" href="<%= locales_url %>?filters[key]=<%= Rack::Utils.escape("^#{category.name}") %>"><%= category.name %></a>
+            <span class="text"><%= key.name %></span>
+          </td>
+          <td class="translations">
+            <table class="locales">
+              <% key.translations.sort_by(&:locale).each do |translation| %>
+                <tr>
+                  <td class="locale"><%= translation.locale %>:</td>
+                  <td class="value">
+                    <% if translation.text.nil? || translation.text.is_a?(String) %>
+                      <textarea cols=80 rows=<%= translation.number_of_lines %> name="translations[<%= translation.name %>]" dir="auto" class="form-control"><%= Rack::Utils.escape_html translation.text %></textarea>
+                    <% else %>
+                      [read only]
+                      <%= translation.text.class.name %>
+                      <%= Rack::Utils.escape_html translation.text.inspect %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
           </td>
         </tr>
       <% end %>
     </table>
-  <% else %>
-    <form id="updateform" action="<%= update_locales_path %>" method="put">
-      <% @filters.each do |filter, value| %>
-        <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
-      <% end %>
+    <input type="submit" id="save" value="Save" class="btn btn-primary pull-right" />
 
-      <table class="keys" cellspacing="0">
-        <% @keys.each do |name, key| %>
-          <tr class="translation
-            <%= "incomplete" unless key.complete? %>
-            <%= "empty" if key.empty? %>
-            ">
-            <td class="key">
-              <span class="text"><%= key.name %></span>
-            </td>
-            <td class="translations">
-              <table class="locales">
-                <% key.translations.sort_by(&:locale).each do |translation| %>
-                  <tr>
-                    <td class="locale"><%= translation.locale %>:</td>
-                    <td class="value">
-                      <% if translation.text.nil? || translation.text.is_a?(String) %>
-                        <textarea cols=80 rows=<%= translation.number_of_lines %> name="translations[<%= translation.name %>]" dir="auto"><%= Rack::Utils.escape_html translation.text %></textarea>
-                      <% else %>
-                        [read only]
-                        <%= translation.text.class.name %>
-                        <%= Rack::Utils.escape_html translation.text.inspect %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </table>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-
-      <p class="pull-right"><input type="submit" id="save" value="Save" /></p>
-    </form>
-  <% end %>
-</div>
+    <div class='clearfix'/>
+  </form>
+<% end %>

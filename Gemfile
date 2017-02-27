@@ -14,5 +14,6 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'sqlite3'
-gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'rubyzip', '>= 1.0.0'

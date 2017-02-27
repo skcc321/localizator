@@ -1,12 +1,13 @@
-require "localizator/engine"
-require "localizator/rewrite"
-require "localizator/version"
-require "localizator/app"
-require "localizator/category"
-require "localizator/key"
-require "localizator/store"
-require "localizator/transformation"
-require "localizator/translation"
+require 'localizator/engine'
+require 'localizator/rewrite'
+require 'localizator/version'
+require 'localizator/app'
+require 'localizator/category'
+require 'localizator/key'
+require 'localizator/store'
+require 'localizator/transformation'
+require 'localizator/translation'
+require 'localizator/zip_file_generator'
 
 module Localizator
   mattr_accessor :locales_path

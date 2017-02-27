@@ -31,5 +31,18 @@ module Localizator
 
       redirect_to locales_path(filters: params[:filters])
     end
+
+    def download
+      input_dir = Localizator.locales_path
+      output_file = Tempfile.new(['locales', '.zip'])
+      output_file.close
+      ZipFileGenerator.new(input_dir, output_file.path).write
+
+      send_file output_file.path
+    end
+
+    def reload
+      FileUtils.touch(Rails.root.join('tmp', 'restart.txt'))
+    end
   end
 end
