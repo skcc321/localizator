@@ -122,10 +122,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (~> 3.3.6)
+  bootstrap-sass
   localizator!
-  rubyzip (>= 1.0.0)
-  sass-rails (>= 3.2)
+  rubyzip
+  sass-rails
   sqlite3
 
 BUNDLED WITH
