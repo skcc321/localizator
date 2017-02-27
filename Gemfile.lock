@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    localizator (0.7.5)
+    localizator (0.7.6)
       rails (~> 4.2.8)
       rubyzip (>= 1.0.0)
 
