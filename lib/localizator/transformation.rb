@@ -30,7 +30,8 @@ module Localizator
               sub_result = (sub_result[k.to_s] ||= {})
             end
           }
-        rescue => e
+        rescue StandardError => e
+          Rails.logger.warn(e)
           raise TransformationError.new("Failed to nest key: #{key.inspect} with value: #{value.inspect}")
         end
       }

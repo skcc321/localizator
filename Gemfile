@@ -12,6 +12,3 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
-gem 'sqlite3'
-gem 'rubyzip'

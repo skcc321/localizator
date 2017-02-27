@@ -3,7 +3,6 @@
 require "psych"
 require "yaml"
 
-require "localizator"
 require "localizator/store"
 
 module Localizator
