@@ -1,0 +1,11 @@
+tr.key td.key {
+  vertical-align: middle;
+}
+
+td.translations td.locale {
+  padding-right: 5px;
+}
+
+td.translations  textarea {
+  margin-bottom: 2px;
+}
