@@ -36,7 +36,7 @@ module Localizator
       yield(self)
 
       self.app = App.new(locales_path)
-      self.app.start
+      app.start
 
       ::I18n.send(:include, TranslationEditLink)
       ::ApplicationHelper.send(:include, TranslationEditLink)

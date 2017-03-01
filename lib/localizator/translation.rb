@@ -5,7 +5,7 @@ module Localizator
     attr_accessor :name, :file
     attr_writer :text
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       @name, @file, @text = attributes.values_at(:name, :file, :text)
     end
 
@@ -22,11 +22,11 @@ module Localizator
     end
 
     def key
-      @key ||= self.name.split(".")[1..-1].join(".")
+      @key ||= name.split('.')[1..-1].join('.')
     end
 
     def locale
-      @locale ||= self.name.split(".").first
+      @locale ||= name.split('.').first
     end
   end
 end
