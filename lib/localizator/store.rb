@@ -24,7 +24,8 @@ module Localizator
     end
 
     def add_translation(translation)
-      if existing = self.translations[translation.name]
+      existing = self.translations[translation.name]
+      if existing.present?
         message = "#{translation.name} detected in #{translation.file} and #{existing.file}"
         raise DuplicateTranslationError.new(message)
       end
@@ -65,15 +66,15 @@ module Localizator
         }
       end
 
-      self.keys.select {|name, key|
+      self.keys.select do |_name, key|
         filters.all? {|filter| filter.call(key)}
-      }
+      end
     end
 
     def create_missing_keys
-      self.keys.each {|name, key|
+      self.keys.each do |_name, key|
         missing_locales = self.locales - key.translations.map(&:locale)
-        missing_locales.each {|locale|
+        missing_locales.each do |locale|
           translation = key.translations.first
 
           # this just replaces the locale part of the file name. should
@@ -87,8 +88,8 @@ module Localizator
 
           new_translation = Translation.new(name: "#{locale}.#{key.name}", file: path)
           add_translation(new_translation)
-        }
-      }
+        end
+      end
     end
 
     def from_yaml(yaml, file=nil)

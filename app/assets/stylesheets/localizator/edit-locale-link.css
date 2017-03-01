@@ -1,9 +1,9 @@
 .edit-locale-link {
   display: none;
   background: none;
-  padding: 2px !important;
-  margin: 0 !important;
-  color: #31effe !important;
+  padding: 2px;
+  margin: 0;
+  color: #31effe;
   border-radius: 2px;
   cursor: pointer;
 }

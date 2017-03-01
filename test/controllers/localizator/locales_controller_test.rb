@@ -29,10 +29,11 @@ module Localizator
     end
 
     test "should get reload" do
-      File.delete(Rails.root.join('tmp', 'restart.txt'))
+      restart_file = Rails.root.join('tmp', 'restart.txt')
+      File.delete(restart_file) if File.exist?(restart_file)
       get :reload
       assert_redirected_to locales_path
-      assert_equal(File.exist?(Rails.root.join('tmp', 'restart.txt')), true)
+      assert_equal(File.exist?(restart_file), true)
     end
   end
 end

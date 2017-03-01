@@ -22,7 +22,9 @@ module Localizator
     end
 
     def update
-      if translations = params[:translations]
+      translations = params[:translations]
+
+      if translations.present?
         translations.each {|name, text|
           app.store.translations[name].text = text
         }
