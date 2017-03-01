@@ -28,13 +28,5 @@ module Localizator
     def locale
       @locale ||= self.name.split(".").first
     end
-
-    def number_of_lines
-      if text
-        text.scan(/\n/).size + 1
-      else
-        1
-      end
-    end
   end
 end

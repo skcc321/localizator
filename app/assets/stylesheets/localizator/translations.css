@@ -9,3 +9,7 @@ td.translations td.locale {
 td.translations  textarea {
   margin-bottom: 2px;
 }
+
+table.locales, td.translations, td.value {
+  width: 100%;
+}
