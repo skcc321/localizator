@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     localizator (0.8.2)
+      jquery-rails
       rails (~> 4.2.8)
       rubyzip (>= 1.0.0)
 
