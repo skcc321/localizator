@@ -9,6 +9,7 @@ class LocaleLinks {
 
   init() {
     this.processInputElements();
+    this.processTextareaElements();
     this.processImgElements();
     this.getLinkElements();
     this.bindActions();
@@ -16,6 +17,24 @@ class LocaleLinks {
 
   getLinkElements() {
     this.linkElements = document.getElementsByClassName(this.editLinkClass);
+  }
+
+  createPseudoLink(originElement, linkHtml) {
+    // create new container
+    var newLinkContainer = document.createElement('span');
+
+    newLinkContainer.innerHTML = linkHtml;
+
+    newLinkContainer.style.height = originElement.offsetHeight + 'px';
+    newLinkContainer.style.width = originElement.offsetHeight + 'px';
+    newLinkContainer.style.display = 'inline-block';
+    newLinkContainer.style.position = 'absolute';
+    newLinkContainer.style.top = originElement.offsetTop + 'px';
+    newLinkContainer.style.left = (originElement.offsetLeft + originElement.offsetWidth) + 'px';
+    newLinkContainer.style.lineHeight = originElement.offsetHeight + 'px';
+    newLinkContainer.style.textAlign = 'left';
+
+    originElement.parentNode.insertBefore(newLinkContainer, originElement.nextSibling);
   }
 
   processImgElements() {
@@ -34,17 +53,27 @@ class LocaleLinks {
         img.alt = alt.replace(first_match, '');
 
         // create new container
-        var newLinkContainer = document.createElement('span');
-        newLinkContainer.innerHTML = first_match;
-        newLinkContainer.style.height = img.offsetHeight + 'px';
-        newLinkContainer.style.width = img.offsetHeight + 'px';
-        newLinkContainer.style.display = 'inline-block';
-        newLinkContainer.style.position = 'absolute';
-        newLinkContainer.style.top = img.offsetTop + 'px';
-        newLinkContainer.style.lineHeight = img.offsetHeight + 'px';
-        newLinkContainer.style.textAlign = 'left';
+        this.createPseudoLink(img, first_match);
+      }
+    }
+  }
 
-        img.parentNode.insertBefore(newLinkContainer, img.nextSibling);
+  processTextareaElements() {
+    var inputs = document.getElementsByTagName('textarea');
+
+    for (var input of inputs) {
+      var placeholder = input.placeholder.trim().replace(/\n/g, '');;
+      var match = this.editLinkRegexp.exec(placeholder);
+
+      // placeholder match -----------------------------------
+      if (match !== null) {
+        var first_match = match[0];
+
+        // replace placeholder
+        input.placeholder = placeholder.replace(first_match, '');
+
+        // create new container
+        this.createPseudoLink(input, first_match);
       }
     }
   }
@@ -64,17 +93,7 @@ class LocaleLinks {
         input.placeholder = placeholder.replace(first_match, '');
 
         // create new container
-        var newLinkContainer = document.createElement('span');
-        newLinkContainer.innerHTML = first_match;
-        newLinkContainer.style.height = input.offsetHeight + 'px';
-        newLinkContainer.style.width = input.offsetHeight + 'px';
-        newLinkContainer.style.display = 'inline-block';
-        newLinkContainer.style.position = 'absolute';
-        newLinkContainer.style.top = input.offsetTop + 'px';
-        newLinkContainer.style.lineHeight = input.offsetHeight + 'px';
-        newLinkContainer.style.textAlign = 'left';
-
-        input.parentNode.insertBefore(newLinkContainer, input.nextSibling);
+        this.createPseudoLink(input, first_match);
       }
 
       // Value match -----------------------------------------
@@ -84,21 +103,11 @@ class LocaleLinks {
       if (match !== null) {
         var first_match = match[0];
 
-        // replace placeholder
+        // replace value
         input.value = value.replace(first_match, '');
 
         // create new container
-        var newLinkContainer = document.createElement('span');
-        newLinkContainer.innerHTML = first_match;
-        newLinkContainer.style.height = input.offsetHeight + 'px';
-        newLinkContainer.style.width = input.offsetHeight + 'px';
-        newLinkContainer.style.display = 'inline-block';
-        newLinkContainer.style.position = 'absolute';
-        // newLinkContainer.style.top = input.offsetTop + 'px';
-        newLinkContainer.style.lineHeight = input.offsetHeight + 'px';
-        newLinkContainer.style.textAlign = 'left';
-
-        input.parentNode.insertBefore(newLinkContainer, input.nextSibling);
+        this.createPseudoLink(input, first_match);
       }
     }
   }
