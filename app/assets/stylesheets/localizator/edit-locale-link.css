@@ -1,17 +1,17 @@
 .edit-locale-link {
-  display: none;
-  background: none;
-  padding: 2px;
-  margin: 0;
-  color: #31effe;
-  border-radius: 2px;
-  cursor: pointer;
+  display: none !important;
+  background: none !important;
+  padding: 2px !important;
+  margin: 0 !important;
+  color: #31effe !important;
+  border-radius: 2px !important;
+  cursor: pointer !important;
 }
 
 .edit-locale-link:hover {
-  background-color: #69696966;
+  background-color: #69696966 !important;
 }
 
 .edit-locale-link-wrapper:hover .edit-locale-link {
-  display: inline;
+  display: inline !important;
 }

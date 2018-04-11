@@ -27,7 +27,10 @@ module Localizator
 
   # If you want to enable access by specific conditions
   mattr_accessor :enable_proc
-  @@enable_proc = proc { |controller| controller.try(:current_user).try(:admin?) && !Rails.env.test? }
+  @@enable_proc = proc { |controller| Rails.env.development? }
+
+  mattr_accessor :disable_pattern
+  @@disable_pattern = [/\Aseo/]
 
   class << self
     attr_accessor :app

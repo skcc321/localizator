@@ -6,10 +6,9 @@ module ActionDispatch::Routing
   end
 end
 
-
 module Localizator
   module TranslationController
-    def self.included base
+    def self.included(base)
       base.instance_eval do
         before_action :enable_localizator
       end
@@ -21,27 +20,31 @@ module Localizator
   end
 end
 
-
 module Localizator
   module TranslationEditLink
-    def self.included base
+    def self.included(base)
       base.instance_eval do
         def self.translate(*attrs)
           result = super(*attrs)
 
-          if !::Localizator.enable_links || result.is_a?(Hash)
-            result
-          else
-            link = <<-eos
-            <i class='edit-locale-link'
-               data-href='/localizator?filters[key]=#{attrs.first}'
-            >
-               #{Localizator.edit_link_caption}
-            </i>
-            eos
+          return result unless ::Localizator.enable_links
+          return result if result.is_a?(Hash)
 
-            "#{result}#{link}".html_safe
+          key = attrs.first
+
+          return result if ::Localizator.disable_pattern.any? do |pattern|
+            key =~ pattern
           end
+
+          link = <<~HEREDOC
+          <i class='edit-locale-link'
+             data-href='/localizator?filters[key]=#{key}'
+          >
+             #{Localizator.edit_link_caption}
+          </i>
+          HEREDOC
+
+          "#{result}#{link}".html_safe
         end
       end
     end
