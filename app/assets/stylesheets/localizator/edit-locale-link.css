@@ -6,6 +6,8 @@
   color: #31effe !important;
   border-radius: 2px !important;
   cursor: pointer !important;
+  position: static !important;
+  font-size: 20px !important;
 }
 
 .edit-locale-link:hover {
